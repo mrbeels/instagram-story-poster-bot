@@ -1,5 +1,5 @@
 # instagram-story-poster-bot
-Automated Instagram Story Posting
+Mr Beel's Instagram Story Poster Bot
 
 ## Steps :
 ### 1) Install Puppeteer
