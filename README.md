@@ -2,10 +2,10 @@
 Mr Beel's Instagram Story Poster Bot
 
 ## Steps :
-### 1) Install Puppeteer
+### 1) Install Puppeteer v2.0.0
 
 ```
-npm i puppeteer
+npm i puppeteer@2.0.0
 ```
 
 ### 2) Enter username & password in 'credentials.txt'
