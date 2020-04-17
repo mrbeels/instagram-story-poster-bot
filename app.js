@@ -2,8 +2,18 @@
 
 // Puppeteer & Mobie Emulation
 const puppeteer = require("puppeteer");
-const devices = require("puppeteer/DeviceDescriptors");
-const iPhonex = devices["iPhone X"];
+const phone = {
+  'name': 'iPhone 6',
+  'userAgent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 11_0 like Mac OS X) AppleWebKit/604.1.38 (KHTML, like Gecko) Version/11.0 Mobile/15A372 Safari/604.1',
+  'viewport': {
+    'width': 582,
+    'height': 1199,
+    'deviceScaleFactor': 2,
+    'isMobile': true,
+    'hasTouch': true,
+    'isLandscape': false
+  }
+}
 
 const fs = require("fs");
 const text = fs.readFileSync("credentials.txt", "utf-8");
@@ -21,7 +31,7 @@ const credentials = text.split(",");
       headless: false,
     });
     const page = await browser.newPage();
-    await page.emulate(iPhonex);
+    await page.emulate(phone);
 
     //Instagram Login Page
     await page.goto(INSTA_URL, {
