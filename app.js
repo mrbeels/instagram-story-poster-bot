@@ -26,6 +26,7 @@ const credentials = text.split(",");
     //Instagram Login Page
     await page.goto(INSTA_URL, {
       waitUntil: "networkidle0",
+      timeout: 3000000
     });
     console.log(`Redirecting to ${INSTA_URL}`);
 
@@ -52,26 +53,25 @@ const credentials = text.split(",");
       waitUntil: "networkidle2",
     });
 
-    await page.waitFor(6 * 1000);
-
     console.log(`Login-ed to ${USERNAME}'s account`);
 
+    await page.waitForXPath(
+      '//*[@id="react-root"]/section/main/div/div/div/button'
+    );
     //Don't save password
     const detailsNotNowButton = await page.$x(
       '//*[@id="react-root"]/section/main/div/div/div/button'
     );
     await detailsNotNowButton[0].click();
 
-    await page.waitFor(6 * 1000);
-
+    await page.waitForXPath(
+      "/html/body/div[4]/div/div/div[3]/button[2]"
+    );
     //Don't Add to Homescreen
     const cancelButton = await page.$x(
       "/html/body/div[4]/div/div/div[3]/button[2]"
     );
     await cancelButton[0].click();
-
-    await page.waitFor(6 * 1000);
-
     console.log("Starting to Post!");
 
     /*  
@@ -79,31 +79,33 @@ const credentials = text.split(",");
               First Story 
   
       */
+
+    console.log("Posting title.png");
     const [titlePic] = await Promise.all([
       page.waitForFileChooser(),
       page.click(".mTGkH"),
     ]);
     await titlePic.accept(["output/title.png"]);
 
-    await page.waitFor(3 * 1000);
+    await page.waitForXPath(
+      '//*[@id="react-root"]/section/footer/div/div/button'
+    );
 
     const addToStoryButton1 = await page.$x(
       '//*[@id="react-root"]/section/footer/div/div/button'
     );
     await addToStoryButton1[0].click();
 
-    console.log("Posting title.png");
 
-    await page.waitFor(10 * 1000);
+    await page.waitForXPath(
+      "/html/body/div[4]/div/div/div[3]/button[2]"
+    );
 
     //Not now Notification Button
     const notiNotNowButton = await page.$x(
       "/html/body/div[4]/div/div/div[3]/button[2]"
     );
     await notiNotNowButton[0].click();
-
-    await page.waitFor(3 * 1000);
-
     console.log("Posted title.png");
 
     //comment out the following if you only need to post one story
@@ -113,22 +115,22 @@ const credentials = text.split(",");
               Second Story 
   
       */
+
+    console.log("Posting summary.png");
     const [summaryPic] = await Promise.all([
       page.waitForFileChooser(),
       page.click(".mTGkH"),
     ]);
     await summaryPic.accept(["output/summary.png"]);
 
-    await page.waitFor(3 * 1000);
+    await page.waitForXPath(
+      '//*[@id="react-root"]/section/footer/div/div/button'
+    );
 
     const addToStoryButton2 = await page.$x(
       '//*[@id="react-root"]/section/footer/div/div/button'
     );
     await addToStoryButton2[0].click();
-
-    console.log("Posting summary.png");
-
-    await page.waitFor(10 * 1000);
 
     console.log("Posted summary.png");
 
@@ -137,6 +139,8 @@ const credentials = text.split(",");
               Third Story
   
       */
+    await page.waitFor(10 * 1000);
+    console.log("Posting link.png");
     const [linkPic] = await Promise.all([
       page.waitForFileChooser(),
       page.click(".mTGkH"),
@@ -144,16 +148,13 @@ const credentials = text.split(",");
 
     await linkPic.accept(["output/link.png"]);
 
-    await page.waitFor(3 * 1000);
-
+    await page.waitForXPath(
+      '//*[@id="react-root"]/section/footer/div/div/button'
+    );
     const addToStoryButton3 = await page.$x(
       '//*[@id="react-root"]/section/footer/div/div/button'
     );
     await addToStoryButton3[0].click();
-
-    console.log("Posting link.png");
-
-    await page.waitFor(10 * 1000);
 
     await page.screenshot({
       path: "log.png",
