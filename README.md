@@ -1,5 +1,5 @@
 # instagram-story-poster-bot
-Mr Beel's Instagram Story Poster Bot
+Mr Beels' Instagram Story Poster Bot
 
 ## Steps :
 ### 1) Install dependency
