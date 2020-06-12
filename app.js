@@ -3,17 +3,17 @@
 // Puppeteer & Mobie Emulation
 const puppeteer = require("puppeteer");
 const phone = {
-  'name': 'iPhone 6',
-  'userAgent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 11_0 like Mac OS X) AppleWebKit/604.1.38 (KHTML, like Gecko) Version/11.0 Mobile/15A372 Safari/604.1',
-  'viewport': {
-    'width': 582,
-    'height': 1199,
-    'deviceScaleFactor': 2,
-    'isMobile': true,
-    'hasTouch': true,
-    'isLandscape': false
-  }
-}
+  name: "iPhone 6",
+  userAgent: "Mozilla/5.0 (iPhone; CPU iPhone OS 11_0 like Mac OS X) AppleWebKit/604.1.38 (KHTML, like Gecko) Version/11.0 Mobile/15A372 Safari/604.1",
+  viewport: {
+    width: 582,
+    height: 1199,
+    deviceScaleFactor: 2,
+    isMobile: true,
+    hasTouch: true,
+    isLandscape: false,
+  },
+};
 
 const fs = require("fs");
 const text = fs.readFileSync("credentials.txt", "utf-8");
@@ -36,7 +36,7 @@ const credentials = text.split(",");
     //Instagram Login Page
     await page.goto(INSTA_URL, {
       waitUntil: "networkidle0",
-      timeout: 3000000
+      timeout: 3000000,
     });
     console.log(`Redirecting to ${INSTA_URL}`);
 
@@ -74,12 +74,10 @@ const credentials = text.split(",");
     );
     await detailsNotNowButton[0].click();
 
-    await page.waitForXPath(
-      "/html/body/div[4]/div/div/div[3]/button[2]"
-    );
+    await page.waitForXPath("/html/body/div[4]/div/div/div/div[3]/button[2]");
     //Don't Add to Homescreen
     const cancelButton = await page.$x(
-      "/html/body/div[4]/div/div/div[3]/button[2]"
+      "/html/body/div[4]/div/div/div/div[3]/button[2]"
     );
     await cancelButton[0].click();
     console.log("Starting to Post!");
@@ -106,14 +104,11 @@ const credentials = text.split(",");
     );
     await addToStoryButton1[0].click();
 
-
-    await page.waitForXPath(
-      "/html/body/div[4]/div/div/div[3]/button[2]"
-    );
+    await page.waitForXPath("/html/body/div[4]/div/div/div/div[3]/button[2]");
 
     //Not now Notification Button
     const notiNotNowButton = await page.$x(
-      "/html/body/div[4]/div/div/div[3]/button[2]"
+      "/html/body/div[4]/div/div/div/div[3]/button[2]"
     );
     await notiNotNowButton[0].click();
     console.log("Posted title.png");
@@ -170,12 +165,14 @@ const credentials = text.split(",");
       path: "log.png",
     });
 
+    await page.waitFor(5 * 1000);
+
     console.log("Posted link.png");
 
     await browser.close();
     console.log("Task completed!");
   } catch (err) {
-    console.log(err)
+    console.log(err);
   }
 })();
 
